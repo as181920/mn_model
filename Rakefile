@@ -15,16 +15,16 @@ desc "Run tests"
 task default: :test
 
 namespace :db do
+  db_configurations = YAML::load(File.open('config/database.yml'))
+
   desc "Migrate the db"
   task :migrate do
-    db_configurations = YAML::load(File.open('config/database.yml'))
     ActiveRecord::Base.establish_connection(db_configurations)
     ActiveRecord::Migrator.migrate("db/migrate/")
   end
 
   desc "Create the db"
   task :create do
-    db_configurations = YAML::load(File.open('config/database.yml'))
     admin_connection = db_configurations.merge({'database'=> 'postgres', 
                                                 'schema_search_path'=> 'public'}) 
     ActiveRecord::Base.establish_connection(admin_connection)
@@ -33,7 +33,6 @@ namespace :db do
 
   desc "drop the db"
   task :drop do
-    db_configurations = YAML::load(File.open('config/database.yml'))
     admin_connection = db_configurations.merge({'database'=> 'postgres', 
                                                 'schema_search_path'=> 'public'}) 
     ActiveRecord::Base.establish_connection(admin_connection)
