@@ -1,0 +1,7 @@
+host: localhost
+adapter: postgresql
+encoding: unicode
+database: micro_notes
+username: dbuser
+password: db.password
+pool: 5
