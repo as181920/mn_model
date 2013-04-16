@@ -3,7 +3,6 @@ PATH
   specs:
     mn_model (0.0.1)
       activerecord
-      pg
 
 GEM
   remote: https://rubygems.org/
@@ -56,6 +55,7 @@ DEPENDENCIES
   bundler
   guard-minitest
   mn_model!
+  pg
   pry
   rake
   rb-inotify
