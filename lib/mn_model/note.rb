@@ -2,9 +2,13 @@ module MnModel
   class Note < ActiveRecord::Base
     establish_connection DB_CONFIGURATIONS
 
-    def hi
-      "hi note"
-    end
+    has_many :fields
+    has_many :items, through: :fields
 
+    validates_presence_of :name
+
+    def records
+      []
+    end
   end
 end

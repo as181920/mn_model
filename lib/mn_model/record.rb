@@ -1,7 +1,6 @@
 module MnModel
   class Record
-    def hi
-      "hi record"
-    end
+    #include ActiveModel::Model
+    #attr_accessor :name, :age
   end
 end
