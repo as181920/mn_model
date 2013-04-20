@@ -2,6 +2,7 @@ require "bundler/setup"
 require "yaml"
 require "pg"
 require "active_record"
+require "pry"
 
 LIB_PATH = File.dirname(File.absolute_path(__FILE__))
 
