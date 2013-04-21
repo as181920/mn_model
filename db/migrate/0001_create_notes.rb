@@ -22,6 +22,8 @@ class CreateNotes < ActiveRecord::Migration
       t.references :entry
       t.text :content
       t.timestamps
+
+      t.index([:field_id, :entry_id], :unique => true)
     end
   end
 end
