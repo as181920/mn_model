@@ -1,5 +1,5 @@
 module MnModel
-  class Record < ActiveRecord::Base
+  class Entry < ActiveRecord::Base
     establish_connection DB_CONFIGURATIONS
 
     belongs_to :note

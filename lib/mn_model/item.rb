@@ -4,8 +4,8 @@ module MnModel
     #self.table_name = "items"
 
     belongs_to :field
-    belongs_to :record
+    belongs_to :entry
 
-    validates_presence_of :field_id, :record_id
+    validates_presence_of :field_id, :entry_id
   end
 end

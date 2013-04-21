@@ -12,14 +12,14 @@ class CreateNotes < ActiveRecord::Migration
       t.timestamps
     end
 
-    create_table :records do |t|
+    create_table :entries do |t|
       t.references :note
       t.timestamps
     end
 
     create_table :items do |t|
       t.references :field
-      t.references :record
+      t.references :entry
       t.text :content
       t.timestamps
     end

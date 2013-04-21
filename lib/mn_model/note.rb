@@ -3,25 +3,25 @@ module MnModel
     establish_connection DB_CONFIGURATIONS
 
     has_many :fields
-    has_many :records
+    has_many :entries
     has_many :items, through: :fields
 
     validates_presence_of :name
 
-    def create_record_with_data(attributes={})
-      record_with_data = {}
+    def create_entry_with_data(attributes={})
+      entry_with_data = {}
 
       transaction do
-        record = Record.create note_id: id
-        record_with_data.merge! record.serializable_hash
+        entry = Entry.create note_id: id
+        entry_with_data.merge! entry.serializable_hash
 
         fields.each do |f|
-          item = record.items.create field_id: f.id, content: attributes[f.name]
-          record_with_data.merge!(f.name => item.content)
+          item = entry.items.create field_id: f.id, content: attributes[f.name]
+          entry_with_data.merge!(f.name => item.content)
         end
       end
 
-      return record_with_data
+      return entry_with_data
     end
   end
 end
