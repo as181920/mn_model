@@ -11,6 +11,10 @@ class CreateNotes < ActiveRecord::Migration
       t.string :name, null: false
     end
 
+    create_table :records do |t|
+      t.references :note
+    end
+
     create_table :items do |t|
       t.references :field
       t.integer :record_id
