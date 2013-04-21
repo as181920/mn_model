@@ -73,4 +73,26 @@ describe MnModel do
 
   end
 
+  describe "advanced query for entries" do
+    before do
+      #Note.destroy_all
+      @note = Note.create name: "name_for_test"
+      @note.fields.create name: "test_field_1"
+      @note.fields.create name: "test_field_2"
+
+      @field_1_name, @field_2_name = @note.fields[0].name, @note.fields[1].name
+      5.times do |i|
+        @note.create_entry_with_data @field_1_name => "field_1_content_#{i}", @field_2_name => "field_2_content_#{i}"
+      end
+      6.times do |i|
+        @note.create_entry_with_data @field_1_name => "field_1_ccc_#{i}", @field_2_name => "field_2_ccc_#{i}"
+      end
+    end
+
+    it "can get entries by conditions" do
+      #TODO
+    end
+
+  end
+
 end
