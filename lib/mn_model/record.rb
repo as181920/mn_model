@@ -9,8 +9,3 @@ module MnModel
 end
 
 
-      #self.class.class_eval do
-      #  record.note.fields.each do |f|
-      #    attr_accessor f.name.to_s
-      #  end
-      #end
