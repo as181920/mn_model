@@ -20,7 +20,7 @@ describe MnModel do
       field_1_name, field_2_name = @note.fields[0].name, @note.fields[1].name
       field_1_content, field_2_content = "c1", "c2"
 
-      record_with_data = @note.create_record_with_date field_1_name => field_1_content, field_2_name => field_2_content
+      record_with_data = @note.create_record_with_data field_1_name => field_1_content, field_2_name => field_2_content
       record_with_data.must_be_instance_of Hash
       @note.records.count.must_equal 1
       record_with_data[field_1_name].must_equal field_1_content
@@ -30,7 +30,7 @@ describe MnModel do
       field_1_name, field_2_name, field_unknown = @note.fields[0].name, @note.fields[1].name, "unknown_field"
       field_1_content, field_2_content, field_unknown_content = "c1", "c2", "?"
 
-      record_with_data = @note.create_record_with_date field_1_name => field_1_content, field_2_name => field_2_content, field_unknown => field_unknown_content
+      record_with_data = @note.create_record_with_data field_1_name => field_1_content, field_2_name => field_2_content, field_unknown => field_unknown_content
       @note.records.count.must_equal 1
       @note.items.count.must_equal 2
       record_with_data[field_1_name].must_equal field_1_content
@@ -41,7 +41,7 @@ describe MnModel do
       field_1_name, field_2_name = @note.fields[0].name, @note.fields[1].name
       field_1_content = "c1"
 
-      record_with_data = @note.create_record_with_date field_1_name => field_1_content
+      record_with_data = @note.create_record_with_data field_1_name => field_1_content
       @note.records.count.must_equal 1
       record_with_data[field_1_name].must_equal field_1_content
       record_with_data[field_2_name].must_be_nil

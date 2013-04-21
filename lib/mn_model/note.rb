@@ -8,7 +8,7 @@ module MnModel
 
     validates_presence_of :name
 
-    def create_record_with_date(attributes={})
+    def create_record_with_data(attributes={})
       record_with_data = {}
 
       transaction do
