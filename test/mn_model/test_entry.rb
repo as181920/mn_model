@@ -17,9 +17,9 @@ describe MnModel do
     end
 
     it "one note have note entries and data" do
-      entries_with_data = @note.entries_with_data()
-      entries_with_data.must_be_instance_of Array
-      entries_with_data.must_be_empty
+      all_entries_with_data = @note.all_entries_with_data()
+      all_entries_with_data.must_be_instance_of Array
+      all_entries_with_data.must_be_empty
     end
 
     it "can create entries with data for a note and get them back" do
@@ -43,10 +43,10 @@ describe MnModel do
       entry_with_data["data"][field_1_name].must_equal field_1_content
 
       # get all entries
-      entries_with_data = @note.entries_with_data
-      entries_with_data.must_be_instance_of Array
-      entries_with_data.length.must_equal 2
-      entries_with_data.last["data"][field_1_name].must_equal field_1_content
+      all_entries_with_data = @note.all_entries_with_data
+      all_entries_with_data.must_be_instance_of Array
+      all_entries_with_data.length.must_equal 2
+      all_entries_with_data.last["data"][field_1_name].must_equal field_1_content
     end
 
     it "created entry will ignore unknown field data" do

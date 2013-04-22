@@ -36,7 +36,7 @@ module MnModel
       return entry_with_data
     end
 
-    def entries_with_data(options={})
+    def all_entries_with_data(options={})
       entries_with_date = entries.collect do |entry|
         entry_with_data = {"data" => Hash.new}.merge! entry.serializable_hash
 
