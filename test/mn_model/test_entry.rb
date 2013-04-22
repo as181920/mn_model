@@ -43,6 +43,7 @@ describe MnModel do
       entry_with_data["data"][field_1_name].must_equal field_1_content
 
       # get all entries
+      # 1000.times {all_entries_with_data = @note.all_entries_with_data}
       all_entries_with_data = @note.all_entries_with_data
       all_entries_with_data.must_be_instance_of Array
       all_entries_with_data.length.must_equal 2
@@ -60,15 +61,23 @@ describe MnModel do
       entry_with_data["data"][field_unknown].must_be_nil
     end
 
-    it "created entry with nil content for unset fields and unknown fields" do
-      field_1_name, field_2_name = @note.fields[0].name, @note.fields[1].name
+    it "created entry will ignore empty field and unknown fields" do
+      field_1_name, field_2_name, field_unknown = @note.fields[0].name, @note.fields[1].name, "unknown_field"
       field_1_content = "c1"
 
-      entry_with_data = @note.create_entry_with_data field_1_name => field_1_content
+      entry_with_data = @note.create_entry_with_data field_1_name => field_1_content, field_unknown => "?"
       @note.entries.count.must_equal 1
+      @note.items.count.must_equal 1
+      entry_with_data["data"].keys.must_include field_1_name
       entry_with_data["data"][field_1_name].must_equal field_1_content
-      entry_with_data["data"][field_2_name].must_be_nil
-      entry_with_data["unknown_field"].must_be_nil
+      entry_with_data["data"].keys.wont_include field_2_name
+      entry_with_data["data"].keys.wont_include field_unknown
+
+      entry_with_data = @note.find_entry_with_data "entry_id" => entry_with_data["id"]
+      entry_with_data["data"].keys.must_include field_1_name
+      entry_with_data["data"][field_1_name].must_equal field_1_content
+      entry_with_data["data"].keys.wont_include field_2_name
+      entry_with_data["data"].keys.wont_include field_unknown
     end
 
   end
