@@ -7,5 +7,7 @@ module MnModel
     belongs_to :entry
 
     validates_presence_of :field_id, :entry_id, :content
+
   end
 end
+

@@ -7,6 +7,7 @@ describe MnModel do
   before do
     Note.destroy_all
     Field.destroy_all
+    Entry.destroy_all
     Item.destroy_all
     @note = Note.create name: "name_for_test"
     @note.fields.create name: "test_field_1"
@@ -39,8 +40,13 @@ describe MnModel do
       entry_with_data["data"][field_1_name].must_equal field_1_content
       entry_with_data["data"][field_2_name].must_equal field_2_content
 
-      # get entry
+      # get entry with data by entry_id
       entry_with_data = @note.find_entry_with_data "entry_id" => entry_with_data["id"]
+      entry_with_data.must_be_instance_of Hash
+      entry_with_data["data"][field_1_name].must_equal field_1_content
+
+      # get etnry with data by entry
+      entry_with_data = Entry.find(entry_with_data["id"]).with_data
       entry_with_data.must_be_instance_of Hash
       entry_with_data["data"][field_1_name].must_equal field_1_content
 
@@ -50,6 +56,9 @@ describe MnModel do
       all_entries_with_data.must_be_instance_of Array
       all_entries_with_data.length.must_equal 2
       all_entries_with_data.last["data"][field_1_name].must_equal field_1_content
+    end
+
+    it "can find entry with data by a entry" do
     end
 
     it "created entry will ignore unknown field data" do

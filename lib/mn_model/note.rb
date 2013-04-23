@@ -42,7 +42,7 @@ module MnModel
 
     def all_entries_with_data(options={})
       #entries_with_date = get_entries_with_data_by_sql(entries)
-      entries_with_date = get_entries_with_data_from_data(items_with_field_name)
+      entries_with_date = get_entries_with_data_by_cal(items_with_field_name)
     end
 
 
@@ -65,7 +65,7 @@ module MnModel
       end
     end
 
-    def get_entries_with_data_from_data(items)
+    def get_entries_with_data_by_cal(items)
       entries_with_date = items.group_by{|e| e.entry_id.to_s}.map{|k, v| {"entry_id" => k, "data" => v.inject({}){|h, e| h.merge(e.field_name => e.content)}}}
     end
   end
