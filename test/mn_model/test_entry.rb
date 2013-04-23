@@ -5,7 +5,9 @@ include MnModel
 
 describe MnModel do
   before do
-    #Note.destroy_all
+    Note.destroy_all
+    Field.destroy_all
+    Item.destroy_all
     @note = Note.create name: "name_for_test"
     @note.fields.create name: "test_field_1"
     @note.fields.create name: "test_field_2"
@@ -61,7 +63,7 @@ describe MnModel do
       entry_with_data["data"][field_unknown].must_be_nil
     end
 
-    it "created entry will ignore empty field and unknown fields" do
+    it "created entry will ignore unsetted field and unknown fields" do
       field_1_name, field_2_name, field_unknown = @note.fields[0].name, @note.fields[1].name, "unknown_field"
       field_1_content = "c1"
 
@@ -78,6 +80,13 @@ describe MnModel do
       entry_with_data["data"][field_1_name].must_equal field_1_content
       entry_with_data["data"].keys.wont_include field_2_name
       entry_with_data["data"].keys.wont_include field_unknown
+    end
+
+    it "can create entry will field which value is empty" do
+      field_1_name, field_2_name = @note.fields[0].name, @note.fields[1].name
+      entry_with_data = @note.create_entry_with_data field_1_name => "x", field_2_name => ""
+      entry_with_data["data"].keys.must_include field_1_name
+      entry_with_data["data"].keys.must_include field_2_name
     end
 
   end

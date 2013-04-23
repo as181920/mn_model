@@ -6,6 +6,6 @@ module MnModel
     belongs_to :field
     belongs_to :entry
 
-    validates_presence_of :field_id, :entry_id
+    validates_presence_of :field_id, :entry_id, :content
   end
 end

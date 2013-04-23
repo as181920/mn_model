@@ -17,7 +17,8 @@ module MnModel
       entry_with_data.merge! entry.serializable_hash
 
       fields.each do |f|
-        if attributes[f.name].present?
+        #if attributes[f.name].present?
+        unless attributes[f.name].nil?
           item = entry.items.create field_id: f.id, content: attributes[f.name]
           entry_with_data["data"].merge!(f.name => item.content)
         end

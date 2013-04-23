@@ -5,7 +5,8 @@ include MnModel
 
 describe MnModel do
   before do
-    #Note.destroy_all
+    Note.destroy_all
+    Field.destroy_all
     @note = Note.create name: "name_for_test"
   end
 
