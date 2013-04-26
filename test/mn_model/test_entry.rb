@@ -45,7 +45,7 @@ describe MnModel do
       entry_with_data.must_be_instance_of Hash
       entry_with_data["data"][field_1_name].must_equal field_1_content
 
-      # get etnry with data by entry
+      # get data by entry
       entry_with_data = Entry.find(entry_with_data["id"]).with_data
       entry_with_data.must_be_instance_of Hash
       entry_with_data["data"][field_1_name].must_equal field_1_content

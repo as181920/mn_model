@@ -32,7 +32,7 @@ module MnModel
       entry_with_data = {"data" => Hash.new}.merge! entry.serializable_hash
 
       fields.each do |f|
-        item = Item.where(entry_id: entry.id, field_id: f.id).first
+        item = Item.find_by entry_id: entry.id, field_id: f.id
         #entry_with_data["data"].merge!(f.name => item.try(:content))
         entry_with_data["data"].merge!(f.name => item.content) if item
       end
@@ -56,7 +56,8 @@ module MnModel
         entry_with_data = {"data" => Hash.new}.merge! entry.serializable_hash
 
         fields.each do |f|
-          item = Item.where(entry_id: entry.id, field_id: f.id).first
+          #item = Item.where(entry_id: entry.id, field_id: f.id).first
+          item = Item.find_by entry_id: entry.id, field_id: f.id
           #entry_with_data["data"].merge!(f.name => item.try(:content))
           entry_with_data["data"].merge!(f.name => item.content) if item
         end

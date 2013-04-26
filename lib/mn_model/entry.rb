@@ -11,7 +11,7 @@ module MnModel
     def with_data
       with_data = {"data" => Hash.new}.merge! self.serializable_hash
       note.fields.each do |f|
-        item = Item.where(entry_id: id, field_id: f.id).first
+        item = Item.find_by entry_id: id, field_id: f.id
         with_data["data"].merge!(f.name => item.content) if item
       end
 
