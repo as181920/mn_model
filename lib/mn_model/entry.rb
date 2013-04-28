@@ -6,6 +6,19 @@ module MnModel
     has_many :items
 
     class << self
+      def find_with_data(id, options={})
+        entry = Entry.find id
+        entry_with_data = {"data" => Hash.new}.merge! entry.serializable_hash
+
+        entry.note.fields.each do |f|
+          item = Item.find_by entry_id: entry.id, field_id: f.id
+          #entry_with_data["data"].merge!(f.name => item.try(:content))
+          entry_with_data["data"].merge!(f.name => item.content) if item
+        end
+
+        return entry_with_data
+      end
+
       def create_with_data(attributes={})
         entry_with_data = {"data" => Hash.new}
 

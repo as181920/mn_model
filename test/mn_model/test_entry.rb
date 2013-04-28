@@ -70,6 +70,18 @@ describe MnModel do
     end
 
     it "can find entry with data by Entry" do
+      field_1_name, field_2_name = @note.fields[0].name, @note.fields[1].name
+      field_1_content, field_2_content = "c1", "c2"
+
+      entry_with_data = @note.create_entry_with_data field_1_name => field_1_content, field_2_name => field_2_content
+      entry_with_data.must_be_instance_of Hash
+      entry_with_data = Entry.find_with_data entry_with_data["id"]
+      entry_with_data.must_be_instance_of Hash
+      entry_with_data["data"][field_1_name].must_equal field_1_content
+      entry_with_data["data"][field_2_name].must_equal field_2_content
+    end
+
+    it "can find entry with data by Entry" do
     end
 
     it "created entry will ignore unknown field data" do
