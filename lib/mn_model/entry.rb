@@ -6,6 +6,24 @@ module MnModel
     has_many :items
 
     class << self
+      def create_with_data(attributes={})
+        entry_with_data = {"data" => Hash.new}
+
+        #transaction do
+        #end
+        entry = Entry.create
+        entry_with_data.merge! entry.serializable_hash
+
+        entry.note.fields.each do |f|
+          #if attributes[f.name].present?
+          unless attributes[f.name].nil?
+            item = entry.items.create field_id: f.id, content: attributes[f.name]
+            entry_with_data["data"].merge!(f.name => item.content)
+          end
+        end
+
+        return entry_with_data
+      end
     end
 
     def with_data
@@ -17,6 +35,7 @@ module MnModel
 
       return with_data
     end
+
 
   end
 end
