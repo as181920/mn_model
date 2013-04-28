@@ -89,7 +89,9 @@ describe MnModel do
       all_entries_with_data = Entry.all_data note_id: @note.id
       all_entries_with_data.must_be_instance_of Array
       all_entries_with_data.length.must_equal 1
-      all_entries_with_data.last["data"][field_1_name].must_equal field_1_content
+      all_entries_with_data.first["data"][field_1_name].must_equal field_1_content
+      all_entries_with_data.first["note_id"].must_equal @note.id
+      all_entries_with_data.first["entry_id"].must_equal entry_with_data["id"]
     end
 
     it "created entry will ignore unknown field data" do

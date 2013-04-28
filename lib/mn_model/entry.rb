@@ -22,7 +22,9 @@ module MnModel
       def all_data(options={})
         note = Note.find options[:note_id]
         items_with_field_name = note.items.select("items.*, fields.name as field_name")
-        entries_with_date = items_with_field_name.group_by{|e| e.entry_id.to_s}.map{|k, v| {"entry_id" => k, "data" => v.inject({}){|h, e| h.merge(e.field_name => e.content)}}}
+        entries_with_date = items_with_field_name.group_by{|e| e.entry_id}.map do |k, v|
+          {"note_id" => note.id, "entry_id" => k, "data" => v.inject({}){|h, e| h.merge(e.field_name => e.content)}}
+        end
       end
 
       def create_with_data(attributes={})
