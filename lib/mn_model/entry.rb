@@ -19,6 +19,12 @@ module MnModel
         return entry_with_data
       end
 
+      def all_data(options={})
+        note = Note.find options[:note_id]
+        items_with_field_name = note.items.select("items.*, fields.name as field_name")
+        entries_with_date = items_with_field_name.group_by{|e| e.entry_id.to_s}.map{|k, v| {"entry_id" => k, "data" => v.inject({}){|h, e| h.merge(e.field_name => e.content)}}}
+      end
+
       def create_with_data(attributes={})
         entry_with_data = {"data" => Hash.new}
 

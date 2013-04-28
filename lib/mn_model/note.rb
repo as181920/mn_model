@@ -45,11 +45,11 @@ module MnModel
       entries_with_date = get_entries_with_data_by_cal(items_with_field_name)
     end
 
+    private
 
     def items_with_field_name
       items.select("items.*, fields.name as field_name")
     end
-    private
 
     def get_entries_with_data_by_sql(selected_entries)
       entries_with_date = selected_entries.collect do |entry|

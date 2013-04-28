@@ -81,7 +81,15 @@ describe MnModel do
       entry_with_data["data"][field_2_name].must_equal field_2_content
     end
 
-    it "can find entry with data by Entry" do
+    it "can find all entries with data for a note by Entry" do
+      field_1_name, field_2_name = @note.fields[0].name, @note.fields[1].name
+      field_1_content, field_2_content = "c1", "c2"
+
+      entry_with_data = @note.create_entry_with_data field_1_name => field_1_content, field_2_name => field_2_content
+      all_entries_with_data = Entry.all_data note_id: @note.id
+      all_entries_with_data.must_be_instance_of Array
+      all_entries_with_data.length.must_equal 1
+      all_entries_with_data.last["data"][field_1_name].must_equal field_1_content
     end
 
     it "created entry will ignore unknown field data" do
