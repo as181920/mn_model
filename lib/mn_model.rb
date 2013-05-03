@@ -8,7 +8,7 @@ LIB_PATH = File.dirname(File.absolute_path(__FILE__))
 
 DB_CONFIGURATIONS_ALLENV = YAML::load(File.read(File.join(LIB_PATH, '../config/database.yml')))
 if defined?(Goliath) and defined?(Goliath.env)
-  DB_CONFIGURATIONS = DB_CONFIGURATIONS_ALLENV[Goliath.env]
+  DB_CONFIGURATIONS = DB_CONFIGURATIONS_ALLENV[Goliath.env.to_s]
 else
   DB_CONFIGURATIONS = DB_CONFIGURATIONS_ALLENV["development"]
 end
