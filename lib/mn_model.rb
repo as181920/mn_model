@@ -6,14 +6,13 @@ require "logger"
 
 LIB_PATH = File.dirname(File.absolute_path(__FILE__))
 
-DB_CONFIGURATIONS = YAML::load(File.read(File.join(LIB_PATH, '../config/database.yml')))
+DB_CONFIGURATIONS_ALLENV = YAML::load(File.read(File.join(LIB_PATH, '../config/database.yml')))
 if defined?(Goliath) and defined?(Goliath.env)
-  DB_ENV = Goliath.env
-  ActiveRecord::Base.establish_connection(DB_CONFIGURATIONS[Goliath.env])
+  DB_CONFIGURATIONS = DB_CONFIGURATIONS_ALLENV[Goliath.env]
 else
-  DB_ENV = :development
-  ActiveRecord::Base.establish_connection(DB_CONFIGURATIONS[:development])
+  DB_CONFIGURATIONS = DB_CONFIGURATIONS_ALLENV["development"]
 end
+ActiveRecord::Base.establish_connection(DB_CONFIGURATIONS)
 #puts Note.superclass.connection.current_database
 ActiveRecord::Base.logger = Logger.new(File.join(LIB_PATH, '../log/db.log'), 'weekly')
 
