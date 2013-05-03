@@ -15,9 +15,9 @@ desc "Run tests"
 task default: :test
 
 namespace :db do
-  db_configurations = YAML::load(File.open('config/database.yml'))
+  db_configurations = YAML::load(File.open('config/database.yml'))[ENV['db_env']||'development']
 
-  desc "Migrate the db"
+  desc "Migrate the db, can add env argument: database: rake db:migrate db_env=production"
   task :migrate do
     ActiveRecord::Base.establish_connection(db_configurations)
     ActiveRecord::Migrator.migrate("db/migrate/")

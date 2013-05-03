@@ -8,7 +8,11 @@ require "pry"
 LIB_PATH = File.dirname(File.absolute_path(__FILE__))
 
 DB_CONFIGURATIONS = YAML::load(File.read(File.join(LIB_PATH, '../config/database.yml')))
-ActiveRecord::Base.establish_connection(DB_CONFIGURATIONS)
+if defined?(Goliath) and defined?(Goliath.env)
+  ActiveRecord::Base.establish_connection(DB_CONFIGURATIONS[Goliath.env])
+else
+  ActiveRecord::Base.establish_connection(DB_CONFIGURATIONS[:development])
+end
 #puts Note.superclass.connection.current_database
 ActiveRecord::Base.logger = Logger.new(File.join(LIB_PATH, '../log/db.log'), 'weekly')
 
