@@ -1,6 +1,6 @@
 module MnModel
   class Field < ActiveRecord::Base
-    establish_connection DB_CONFIGURATIONS
+    establish_connection DB_CONFIGURATIONS[DB_ENV]
 
     belongs_to :note
     has_many :items

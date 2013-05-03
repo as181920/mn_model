@@ -1,6 +1,6 @@
 module MnModel
   class Note < ActiveRecord::Base
-    establish_connection DB_CONFIGURATIONS
+    establish_connection DB_CONFIGURATIONS[DB_ENV]
 
     has_many :fields
     has_many :entries

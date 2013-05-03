@@ -3,14 +3,15 @@ require "yaml"
 require "pg"
 require "active_record"
 require "logger"
-require "pry"
 
 LIB_PATH = File.dirname(File.absolute_path(__FILE__))
 
 DB_CONFIGURATIONS = YAML::load(File.read(File.join(LIB_PATH, '../config/database.yml')))
 if defined?(Goliath) and defined?(Goliath.env)
+  DB_ENV = Goliath.env
   ActiveRecord::Base.establish_connection(DB_CONFIGURATIONS[Goliath.env])
 else
+  DB_ENV = :development
   ActiveRecord::Base.establish_connection(DB_CONFIGURATIONS[:development])
 end
 #puts Note.superclass.connection.current_database

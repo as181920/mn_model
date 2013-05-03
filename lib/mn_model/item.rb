@@ -1,6 +1,6 @@
 module MnModel
   class Item < ActiveRecord::Base
-    establish_connection DB_CONFIGURATIONS
+    establish_connection DB_CONFIGURATIONS[DB_ENV]
     #self.table_name = "items"
 
     belongs_to :field
