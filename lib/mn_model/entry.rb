@@ -54,7 +54,9 @@ module MnModel
 
         entry.items.each do |i|
           field_name = i.field.name
-          unless attributes[field_name].nil?
+          if attributes[field_name].nil?
+            entry_with_data["data"].merge!(field_name => i.content)
+          else
             i.update_attributes content: attributes[field_name]
             entry_with_data["data"].merge!(field_name => i.content)
           end
