@@ -58,7 +58,7 @@ describe MnModel do
       all_entries_with_data.last["data"][field_1_name].must_equal field_1_content
     end
 
-    it "can create entry with data by Entry" do
+    it "can create entry with data by Entry and update and delete" do
       field_1_name, field_2_name = @note.fields[0].name, @note.fields[1].name
       field_1_content, field_2_content = "c1", "c2"
 
@@ -67,6 +67,16 @@ describe MnModel do
       @note.entries.count.must_equal 1
       entry_with_data["data"][field_1_name].must_equal field_1_content
       entry_with_data["data"][field_2_name].must_equal field_2_content
+
+      # Update
+      field_1_content, field_2_content = "c5", "c6"
+      entry_with_data = Entry.update_with_data "id" => entry_with_data["id"], field_1_name => field_1_content, field_2_name => field_2_content
+      entry_with_data.must_be_instance_of Hash
+      @note.entries.count.must_equal 1
+      entry_with_data["data"][field_1_name].must_equal field_1_content
+      entry_with_data["data"][field_2_name].must_equal field_2_content
+      # Delete
+      # TODO
     end
 
     it "can find entry with data by Entry" do
