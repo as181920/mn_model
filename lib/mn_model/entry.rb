@@ -46,10 +46,10 @@ module MnModel
         return entry_with_data
       end
 
-      def update_with_data(attributes={})
+      def update_with_data(id, attributes={})
         entry_with_data = {"data" => Hash.new}
 
-        entry = Entry.find_by id: attributes["id"]
+        entry = Entry.find_by id: id
         entry_with_data.merge! entry.serializable_hash
 
         entry.items.each do |i|

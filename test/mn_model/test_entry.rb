@@ -70,14 +70,14 @@ describe MnModel do
 
       # Update
       field_1_content, field_2_content = "c5", "c6"
-      entry_with_data = Entry.update_with_data "id" => entry_with_data["id"], field_1_name => field_1_content, field_2_name => field_2_content
+      entry_with_data = Entry.update_with_data entry_with_data["id"], field_1_name => field_1_content, field_2_name => field_2_content
       entry_with_data.must_be_instance_of Hash
       @note.entries.count.must_equal 1
       entry_with_data["data"][field_1_name].must_equal field_1_content
       entry_with_data["data"][field_2_name].must_equal field_2_content
 
       field_1_content_modified, field_2_content_modified = "c55", "c66"
-      entry_with_data = Entry.update_with_data "id" => entry_with_data["id"], field_1_name => field_1_content_modified
+      entry_with_data = Entry.update_with_data entry_with_data["id"], field_1_name => field_1_content_modified
       @note.entries.count.must_equal 1
       entry_with_data["data"][field_1_name].must_equal field_1_content_modified
       entry_with_data["data"][field_2_name].must_equal field_2_content
