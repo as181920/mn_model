@@ -82,6 +82,12 @@ describe MnModel do
       entry_with_data["data"][field_1_name].must_equal field_1_content_modified
       entry_with_data["data"][field_2_name].must_equal field_2_content
 
+      # Update with entry
+      entry = @note.entries.find entry_with_data["id"]
+      entry_with_data = entry.update_with_data field_2_name => field_2_content_modified
+      entry_with_data["data"][field_1_name].must_equal field_1_content_modified
+      entry_with_data["data"][field_2_name].must_equal field_2_content_modified
+
       # Delete
       # TODO
     end

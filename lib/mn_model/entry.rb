@@ -52,14 +52,10 @@ module MnModel
         entry = Entry.find_by id: id
         entry_with_data.merge! entry.serializable_hash
 
-        entry.items.each do |i|
-          field_name = i.field.name
-          if attributes[field_name].nil?
-            entry_with_data["data"].merge!(field_name => i.content)
-          else
-            i.update_attributes content: attributes[field_name]
-            entry_with_data["data"].merge!(field_name => i.content)
-          end
+        entry.items.each do |it|
+          field_name = it.field.name
+          it.update_attributes(content: attributes[field_name]) unless attributes[field_name].nil?
+          entry_with_data["data"].merge!(field_name => it.content)
         end
 
         return entry_with_data
@@ -76,6 +72,17 @@ module MnModel
       return with_data
     end
 
+    def update_with_data(attributes={})
+      entry_with_data = self.serializable_hash.merge("data" => Hash.new)
+
+      items.each do |it|
+        field_name = it.field.name
+        it.update_attributes(content: attributes[field_name]) unless attributes[field_name].nil?
+        entry_with_data["data"].merge!(field_name => it.content)
+      end
+
+      return entry_with_data
+    end
 
   end
 end
