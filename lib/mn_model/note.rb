@@ -28,7 +28,7 @@ module MnModel
     end
 
     def find_entry_with_data(options={})
-      entry = Entry.find options["entry_id"]
+      entry = Entry.find options["id"]
       entry_with_data = {"data" => Hash.new}.merge! entry.serializable_hash
 
       fields.each do |f|
@@ -68,7 +68,7 @@ module MnModel
 
     def get_entries_with_data_by_cal(items)
       note_id = self.id
-      entries_with_date = items.group_by{|e| e.entry_id}.map{|k, v| {"note_id" => note_id, "entry_id" => k, "data" => v.inject({}){|h, e| h.merge(e.field_name => e.content)}}}
+      entries_with_date = items.group_by{|e| e.entry_id}.map{|k, v| {"note_id" => note_id, "id" => k, "data" => v.inject({}){|h, e| h.merge(e.field_name => e.content)}}}
     end
   end
 end

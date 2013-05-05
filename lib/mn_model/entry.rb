@@ -23,7 +23,7 @@ module MnModel
         note = Note.find options[:note_id]
         items_with_field_name = note.items.select("items.*, fields.name as field_name")
         entries_with_date = items_with_field_name.group_by{|e| e.entry_id}.map do |k, v|
-          {"note_id" => note.id, "entry_id" => k, "data" => v.inject({}){|h, e| h.merge(e.field_name => e.content)}}
+          {"note_id" => note.id, "id" => k, "data" => v.inject({}){|h, e| h.merge(e.field_name => e.content)}}
         end
       end
 

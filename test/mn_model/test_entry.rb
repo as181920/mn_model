@@ -40,8 +40,8 @@ describe MnModel do
       entry_with_data["data"][field_1_name].must_equal field_1_content
       entry_with_data["data"][field_2_name].must_equal field_2_content
 
-      # get entry with data by entry_id
-      entry_with_data = @note.find_entry_with_data "entry_id" => entry_with_data["id"]
+      # get entry with data by id
+      entry_with_data = @note.find_entry_with_data "id" => entry_with_data["id"]
       entry_with_data.must_be_instance_of Hash
       entry_with_data["data"][field_1_name].must_equal field_1_content
 
@@ -115,7 +115,7 @@ describe MnModel do
       all_entries_with_data.length.must_equal 1
       all_entries_with_data.first["data"][field_1_name].must_equal field_1_content
       all_entries_with_data.first["note_id"].must_equal @note.id
-      all_entries_with_data.first["entry_id"].must_equal entry_with_data["id"]
+      all_entries_with_data.first["id"].must_equal entry_with_data["id"]
     end
 
     it "created entry will ignore unknown field data" do
@@ -141,7 +141,7 @@ describe MnModel do
       entry_with_data["data"].keys.wont_include field_2_name
       entry_with_data["data"].keys.wont_include field_unknown
 
-      entry_with_data = @note.find_entry_with_data "entry_id" => entry_with_data["id"]
+      entry_with_data = @note.find_entry_with_data "id" => entry_with_data["id"]
       entry_with_data["data"].keys.must_include field_1_name
       entry_with_data["data"][field_1_name].must_equal field_1_content
       entry_with_data["data"].keys.wont_include field_2_name
