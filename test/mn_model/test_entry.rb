@@ -90,7 +90,10 @@ describe MnModel do
       entry_with_data["data"][field_2_name].must_equal field_2_content_modified
 
       # Delete
-      # TODO
+      entry.destroy
+      @note.entries.count.must_equal 0
+      all_entries_with_data = @note.all_entries_with_data()
+      all_entries_with_data.must_be_empty
     end
 
     it "can find entry with data by Entry" do
