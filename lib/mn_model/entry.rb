@@ -3,7 +3,7 @@ module MnModel
     establish_connection DB_CONFIGURATIONS
 
     belongs_to :note
-    has_many :items
+    has_many :items, dependent: :destroy
 
     class << self
       def find_with_data(id, options={})
