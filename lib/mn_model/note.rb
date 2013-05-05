@@ -67,7 +67,8 @@ module MnModel
     end
 
     def get_entries_with_data_by_cal(items)
-      entries_with_date = items.group_by{|e| e.entry_id}.map{|k, v| {"entry_id" => k, "data" => v.inject({}){|h, e| h.merge(e.field_name => e.content)}}}
+      note_id = self.id
+      entries_with_date = items.group_by{|e| e.entry_id}.map{|k, v| {"note_id" => note_id, "entry_id" => k, "data" => v.inject({}){|h, e| h.merge(e.field_name => e.content)}}}
     end
   end
 end

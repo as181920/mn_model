@@ -56,6 +56,7 @@ describe MnModel do
       all_entries_with_data.must_be_instance_of Array
       all_entries_with_data.length.must_equal 2
       all_entries_with_data.last["data"][field_1_name].must_equal field_1_content
+      all_entries_with_data.last["note_id"].must_equal @note.id
     end
 
     it "can create entry with data by Entry and update and delete" do
